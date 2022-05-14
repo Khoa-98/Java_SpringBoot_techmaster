@@ -19,7 +19,7 @@ Tại sao phải đảo ngược tên miền trong <groupId>vn.techmaster</group
 
 ### _Lời giải:_
 
-- Vì groupId phải tuân theo các quy tắc đặt tên gói của java (https://docs.oracle.com/javase/specs/jls/se6/html/packages.html#7.7 ).
+- Vì groupId phải tuân theo các quy tắc đặt tên gói của java (https://docs.oracle.com/javase/specs/jls/se6/html/packages.html#7.7 ).điều này đảm bảo khi public ra cộng đồng sẽ không bị trùng
   Maven không bắt buộc quy định này.1 số dự án không tuân theo cách này mà mà sử dụng các groupId là từ đơn. tuy nhiên sẽ rất khó để có được 1 groupId từ đơn mới được chấp thuận để đưa vào kho lưu trữ trung tâm của Maven.
 
 ## **_Câu 3:_**
