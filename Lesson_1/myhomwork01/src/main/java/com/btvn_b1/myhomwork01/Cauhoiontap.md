@@ -169,7 +169,7 @@ Thứ tự các thành phần đường dẫn @PathVariable có thể hoán đ�
 
 ### _Lời giải:_
 
--
+- không thể
 
 ## **_Câu 11:_**
 
@@ -178,7 +178,9 @@ Thứ tự các thành phần đường dẫn @PathVariable có thể hoán đ�
 ```
 
 ### _Lời giải:_
--
+
+- @GetMapping: ó nhiệm vụ đánh dấu hàm xử lý Get request trong Controller, mục đích là để lấy thông tin dữ liệu từ server bởi 1 URI đã cung cấp. Các yêu cầu sử dụng GET chỉ nhận dữ liệu và không có ảnh hưởng gì tới dữ liệu.
+- @PostMapping: có nhiệm vụ đánh dấu hàm xử lý POST request trong Controller.Post mục đích là để gửi dữ liệu tới server giúp bạn thêm mới dữ liệu vào database ví dụ, thông tin khách hàng, file tải lên,...
 
 ## **_Câu 12:_**
 
@@ -187,6 +189,28 @@ Trong các annotation @RequestMapping, @GetMapping, @PostMapping… có tham s�
 ```
 
 ### _Lời giải:_
+
+- Tham số này có định dang kiểu dữ liệu trả về (content-type)
+- vd: bạn muốn dữ liệu trả về ở định dạng JSON thì các bạn có thể thêm thuộc tính produces trong annotation @RequestMapping với giá trị là “application/json” như sau:
+
+```java
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+
+	@RequestMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String hello() {
+		return "Hello World!";
+	}
+}
+```
+
+Khi đó, chúng ta sẽ nhận kết quả với header như sau:  
+![image](https://user-images.githubusercontent.com/95128548/168408397-3ee03138-ab79-46c6-98a3-39967e999528.png)  
+Như các bạn thấy, content-type trả về lúc này là application/json
 
 ## **_Câu 13:_**
 
@@ -202,6 +226,8 @@ public Message echoMessage(@RequestBody Message message){
 
 ### _Lời giải:_
 
+- @RequestBody sẽ yc Spring convert json data thành đối tượng message
+
 ## **_Câu 14:_**
 
 ```java
@@ -210,3 +236,9 @@ Cổng mặc định ứng dụng SpringBoot là 8080. Hãy google cách để t
 ```
 
 ### _Lời giải:_
+
+- Mặc định, server sẽ khởi chạy trên port 8080, chúng ta có thể thay đổi điều này bắt cách điều chỉnh giá trị server.port trong application.properties
+
+```java
+server.port=8081
+```
