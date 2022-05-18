@@ -19,4 +19,5 @@ public class Job {
     private int max_salary;
     private String email_to;
 
+
 }
