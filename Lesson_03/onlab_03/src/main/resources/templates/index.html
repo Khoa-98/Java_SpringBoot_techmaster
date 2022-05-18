@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Home Page</h1>
+    <div>Hello World</div>
+    <div th:text="${name}">name</div>
+    <div th:text="'Book:' + ${book.title} + ' - ' + ${book.author}"></div>
+    <!-- <a href="/text">text</a> -->
+    <a th:href="@{/text}">text page</a>
+    <br />
+    <a th:href="@{/about(foo='bar',tom='jerry')}">Query string parameters</a
+    ><br />
+  </body>
+</html>
