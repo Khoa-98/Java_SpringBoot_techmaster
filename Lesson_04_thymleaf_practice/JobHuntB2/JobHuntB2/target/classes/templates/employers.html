@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="template.html :: header('EmployerList')"> </head>
+  <body>
+    <header th:insert="template.html :: topmenu"></header>
+    <div class="container">
+      <p>EmployerList</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Logo_path</th>
+            <th scope="col">website</th>
+            <th scope="col">email</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="employers, iStat:${employers}">
+            <th scope="row" th:text="${iStat.index} +1"></th>
+            <td th:text="${employers.id}">ID</td>
+            <td>
+              <a
+                th:href="|/employer/${employers.id}|"
+                th:text="${employers.name}"
+              ></a>
+            </td>
+            <td th:text="${employers.logo_path}">logo_path</td>
+            <td th:text="${employers.website}">website</td>
+            <td th:text="${employers.email}">email</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <a th:href="@{/employer/add}" type="button" class="btn btn-primary">
+        Thêm nhà tuyển dụng
+      </a>
+      <br />
+    </div>
+    <header th:replace="template.html :: footer"></header>
+  </body>
+</html>
