@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="template.html :: header('EmployerList')"> </head>
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+    integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+    crossorigin="anonymous"
+  />
+  <body>
+    <header th:insert="template.html :: topmenu"></header>
+    <div class="container">
+      <p>EmployerList</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">title</th>
+            <th scope="col">Description</th>
+            <th scope="col">City</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="job, iStat:${job}">
+            <th scope="row" th:text="${iStat.index} +1"></th>
+            <td>
+              <a th:text="${job.title}"></a>
+            </td>
+            <td th:text="${job.description}"></td>
+            <td th:text="${job.city}"></td>
+            <td>
+              <a
+                th:href="@{/job/edit/{id}(id=${job.id})}"
+                class="btn btn-primary"
+                ><i class="fas fa-user-edit ml-2"></i
+              ></a>
+            </td>
+            <td>
+              <a
+                th:href="@{/job/delete/{id}(id=${job.id})}"
+                class="btn btn-primary"
+                ><i class="fas fa-user-times ml-2"></i
+              ></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <a th:href="@{/job/add}" type="button" class="btn btn-primary">
+        ADD JOB
+      </a>
+      <br />
+    </div>
+    <header th:replace="template.html :: footer"></header>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="template.html :: header('Job_Add')"> </head>
+  <body>
+    <header th:insert="template.html :: topmenu"></header>
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card"
+        >
+          <h1 class="text-center">ADD Job</h1>
+          <div class="card-body">
+            <form
+              th:action="@{/job/add}"
+              th:object="${job}"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div class="form-group">
+                <label>title </label>
+                <input
+                  type="text"
+                  name="title"
+                  th:field="*{title}"
+                  class="form-control"
+                  placeholder="Enter title"
+                />
+              </div>
+
+              <div class="form-group">
+                <label> Description </label>
+                <input
+                  type="text"
+                  name="Description"
+                  th:field="*{description}"
+                  class="form-control"
+                  placeholder="Enter Description"
+                />
+              </div>
+              <select name="City" id="City" class="select" multiple>
+                <option
+                  th:each="City:${City}"
+                  th:text="${City.label}"
+                  value="${City.label}"
+                ></option>
+              </select>
+              <label class="form-label select-label">City</label>
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

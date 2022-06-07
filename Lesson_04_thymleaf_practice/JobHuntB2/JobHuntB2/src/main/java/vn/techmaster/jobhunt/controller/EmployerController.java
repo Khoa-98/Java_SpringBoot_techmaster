@@ -41,7 +41,7 @@ public class EmployerController {
 
     @GetMapping(value = "/add")
     public String addEmployer(Model model) {
-        model.addAttribute("employer", new EmployerRequest("", "", "", "", ""));
+        model.addAttribute("employer", new EmployerRequest("", "", null, "", ""));
         return "Employer_add";
     }
 
