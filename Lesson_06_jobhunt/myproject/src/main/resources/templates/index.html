@@ -10,45 +10,72 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <!-- Link icon -->
+    <link
+      rel="shortcut icon"
+      th:href="@{/src/main/resources/static/logo/logo.png}"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"
+    />
+
+    <title th:text="${title}"></title>
+  </head>
+  <body class="bg-secondary">
+    <header th:insert="template.html :: topmenu"></header>
+    <br />
+
+    <div class="container text-center">
+      <h1 class="text-warning fw-bolder">Welcome to my website JobHunt</h1>
+
+      <br />
+      <div class="d-flex justify-content-center">
+        <div class="p-4">
+          <h1>Emloyer</h1>
+          <button type="button" class="btn btn-danger">
+            <a th:href="@{/employer}" class="text-white">List Employer</a>
+          </button>
+        </div>
+        <div class="p-4">
+          <h1>Job</h1>
+          <button type="button" class="btn btn-danger">
+            <a th:href="@{/job}" class="text-white">List Job</a>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <img
+        style="width: 600px"
+        src="https://topdev.vn/blog/wp-content/uploads/2020/11/tuyendungit2020.png"
+        alt=""
+      />
+    </div>
+
+    <footer
+      style="
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        text-align: center;
+      "
+    >
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2021 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">By Khoa</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!--Footer-->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-    <title th:text="${title}"></title>
-  </head>
-  <body>
-    <header th:insert="template.html :: topmenu"></header>
-
-    <br />
-    <h1 class="text-danger">Welcome to my website JobHunt</h1>
-    <form class="d-flex" style="width: 400px">
-      <input
-        class="form-control me-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-    <br />
-    <h1>Emloyer</h1>
-    <button type="button" class="btn btn-outline-dark">
-      <a th:href="@{/employer}">List Employer</a>
-    </button>
-    <h1>Job</h1>
-    <button type="button" class="btn btn-outline-dark">
-      <a th:href="@{/job}">List Job</a>
-    </button>
-
-    <!-- Copyright -->
-    <footer style="margin-top: 250px">
-      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-        © 2022 Copyright:
-        <a class="text-dark" href="https://mdbootstrap.com/">By Khoa</a>
-      </div>
-      <!-- Copyright -->
-    </footer>
-    <!--Footer-->
   </body>
 </html>

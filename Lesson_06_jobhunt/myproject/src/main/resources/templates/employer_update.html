@@ -12,6 +12,7 @@
   </head>
   <body>
     <header th:insert="template.html :: topmenu"></header>
+    <br>
     <div class="container">
       <div class="row">
         <div
@@ -20,7 +21,7 @@
           <h1 class="text-center">Update employer</h1>
           <div class="card-body">
             <form
-              th:action="@{/employer/update/{id}(id=${employers.id})}"
+              th:action="|/employer/update/${employers.id}|"
               th:object="${employers}"
               method="POST"
               enctype="multipart/form-data"
@@ -78,7 +79,7 @@
               </div>
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">SAVE</button>
               </div>
             </form>
           </div>

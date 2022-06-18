@@ -37,6 +37,16 @@ public class StorageService {
 
     }
 
+    public void deleteFile(String logopath) {
+        String filePathToDelete = path + logopath;
+        try {
+            Files.deleteIfExists(Paths.get(filePathToDelete));
+        } catch (IOException e) {
+            var msg = String.format("Failed to delete file %s", filePathToDelete);
+            throw new StorageException(msg, e);
+        }
+    }
+
     // mission: NẾu cta tải lên 1 file có đuôi: png, jpg, .. thì nó sẽ trả về cái
     // đuôi đó
 

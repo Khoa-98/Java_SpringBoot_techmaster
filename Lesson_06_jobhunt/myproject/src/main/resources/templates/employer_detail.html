@@ -6,6 +6,7 @@
  
   <body>
     <header th:insert="template.html :: topmenu"></header>
+    <br>
     <div class="container">
       <h1 th:text="${employers.name}"></h1>
     <img th:src="|/logo/${employers.logo_path}|">
@@ -25,17 +26,20 @@
           </tr>
         </tbody>
       </table>
+      
         <a th:href = "@{/employer/update/{id}(id=${employers.id})}"
-						 class = "btn btn-primary">Update
+						 class = "btn btn-primary" >Update
         </a>  
-      <form
-        th:action="@{${'delete/' + employers.id}}"
-        method="get"
-        th:object="${employer}"
-        style="width: 50%"
-      >
-        <input type="submit" class="btn btn-primary" value="Delete">
-      <form>
+        <a
+                th:href="@{${'delete/' + employers.id}}"
+                class = "btn btn-danger"
+                 method="get"
+                  th:object="${employer}">
+                Delete
+        </a>
+        <a th:href = "@{/job}"
+						 class = "btn btn-info" >View List Job
+        </a>         
       
     </div>
   </body>
