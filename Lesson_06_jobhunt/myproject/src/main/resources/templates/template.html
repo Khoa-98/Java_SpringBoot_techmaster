@@ -79,7 +79,7 @@
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
           <div class="site-title faux-heading">
-            <a class="navbar-brand text-white" th:href="@{/}"> Job-Hunt </a>
+            <a class="navbar-brand text-warning" th:href="@{/}"> Job-Hunt </a>
           </div>
 
           <button
@@ -97,7 +97,9 @@
             <div class="navbar-nav text-uppercase">
               <a class="nav-link text-white" th:href="@{/employer}">Employer</a>
               <a class="nav-link text-white" th:href="@{/job}">Job</a>
-              <a class="nav-link text-white" th:href="@{/applicant/list}">Applicant</a>
+              <a class="nav-link text-white" th:href="@{/applicant/list}"
+                >Applicant</a
+              >
             </div>
           </div>
         </div>
@@ -107,16 +109,15 @@
     <br />
     <div th:fragment="footer"></div>
     <footer>
-        <!-- Copyright -->
-        <div
-          class="text-center p-3"
-          style="background-color: rgba(0, 0, 0, 0.2)"
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2021 Copyright:
+        <a class="text-black-50" href="https://www.facebook.com/crisdangkhoa98/"
+          >By Khoa</a
         >
-          © 2021 Copyright:
-          <a class="text-white" href="https://mdbootstrap.com/">By Khoa</a>
-        </div>
-        <!-- Copyright -->
-      </footer>
+      </div>
+      <!-- Copyright -->
+    </footer>
     <!-- End of .container -->
   </body>
 </html>

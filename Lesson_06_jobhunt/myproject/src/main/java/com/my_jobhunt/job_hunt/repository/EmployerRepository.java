@@ -13,7 +13,7 @@ import com.my_jobhunt.job_hunt.model.Employer;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class EmployerRepository {
+public class EmployerRepository{
     private ConcurrentHashMap<String, Employer> employers = new ConcurrentHashMap<>();
 
     public EmployerRepository() {

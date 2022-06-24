@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
-public class ApplyController {
+public class GmailController {
 
     @Autowired
     private JavaMailSender javaMailSender;
