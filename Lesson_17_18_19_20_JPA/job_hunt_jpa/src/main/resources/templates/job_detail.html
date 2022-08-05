@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:insert="template.html :: header('JobDetail')">
+     <title th:text="${jobs.title}"></title> 
+    </head>
+ 
+  <body>
+    <header th:insert="template.html :: topmenu"></header>
+    <br>
+    <div class="container">
+      <h1>Detail Job</h1>
+      <table class="table" style="width: 70%">
+        <tbody>
+          <tr th:each="jobs, iStat:${jobs}"></tr>
+            <th scope="row" style="width: 20%">Title</th>
+            <td th:text="${jobs.title}" style="width: 80%"></td>
+          </tr>
+          <tr>
+            <th scope="row" style="width: 20%">Công ty</th>
+            <td th:text="${jobs.emp_id}" style="width: 80%"></td>
+          </tr>
+          <tr>
+            <th scope="row" style="width: 20%">Description</th>
+            <td th:text="${jobs.description}" style="width: 80%"></td>
+          </tr>
+          <tr>
+            <th scope="row" style="width: 20%">City</th>
+            <td th:text="${jobs.city}" style="width: 80%"></td>
+          </tr>
+          
+        </tbody>
+        
+      </table>
+      
+        <a th:href="|/job/update/${jobs.id}|"
+        class = "btn btn-primary" >Update
+        </a>  
+        <a th:href="|/job/delete/${jobs.id}|"
+        class = "btn btn-danger">
+                Delete
+        </a>
+        <a th:href = "@{/job/}" class = "btn btn-info" >View List Job
+        </a>   
+          <a th:href="@{applicant/mail}"
+          class = "btn btn-primary" >Apply
+        </a>        
+      
+    </div>
+  </body>
+</html>

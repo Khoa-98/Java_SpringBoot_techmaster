@@ -1,18 +1,34 @@
-package vn.techmaster.demo_jpa_03.entity;
+package vn.techmaster.user_demo_jpa_03.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import vn.techmaster.user_demo_jpa_03.dto.UserDto;
 
 import javax.persistence.*;
-
+@SqlResultSetMapping(
+        name = "userInfo",
+        classes = @ConstructorResult(
+                targetClass = UserDto.class,
+                columns = {
+                        @ColumnResult(name = "id"),
+                        @ColumnResult(name = "name"),
+                        @ColumnResult(name = "email")
+                }
+        )
+)
+@NamedNativeQuery(
+        name = "getUserInfo",
+        resultSetMapping = "userInfo",
+        query = "SELECT user.id, user.name, user.email " +
+                "FROM user " +
+                "WHERE user.email = ?1"
+)
 @Table(name = "user")
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,5 +43,8 @@ public class User {
 
     @Column(name = "avatar")
     private String avatar;
+
+    @Column(name = "password")
+    private String password;
 
 }

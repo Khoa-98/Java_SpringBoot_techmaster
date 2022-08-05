@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      rel="shortcut icon"
+      href="data:image/png;base64,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"
+      type="image/x-icon"
+    />
+
+    <!-- Link google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Link bootstrap-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <!-- Link css -->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img
+              src="https://techmaster.vn/resources/image/logo-techmaster/white/white_200x74.png"
+              alt=""
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasExample"
+            aria-controls="offcanvasExample"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNavAltMarkup"
+          >
+            <div class="navbar-nav text-uppercase">
+              <a class="nav-link active" aria-current="page" href="#"
+                >Lộ Trình</a
+              >
+              <a class="nav-link" href="#">Doanh nghiệp</a>
+              <a class="nav-link" href="#">Khoá học </a>
+              <a class="nav-link" href="#">Sản phẩm học viên </a>
+              <a class="nav-link" href="#">Khai giảng </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasExample"
+      aria-labelledby="offcanvasExampleLabel"
+    >
+      <div class="offcanvas-body">
+        <div class="navbar-nav text-uppercase">
+          <a class="nav-link active text-dark" aria-current="page" href="#"
+            >Lộ Trình</a
+          >
+          <a class="nav-link" href="#">Doanh nghiệp</a>
+          <a class="nav-link" href="#">Khoá học </a>
+          <a class="nav-link" href="#">Sản phẩm học viên </a>
+          <a class="nav-link" href="#">Khai giảng </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="service pt-5 pb-5">
+      <div class="container">
+        <h3 class="text-center mb-5">Vì Sao Nên Chọn TechMaster?</h3>
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="service-item text-center">
+              <div class="image">
+                <img
+                  src="https://techmaster.vn/resources/image/lecture.png"
+                  alt=""
+                />
+              </div>
+              <div class="content">
+                <p class="mt-4">
+                  Lựa chọn học trực tiếp tại trung tâm hoặc học trực tuyến có
+                  tương tác phù hợp với nhu cầu học viên
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="service-item text-center">
+              <div class="image">
+                <img
+                  src="https://techmaster.vn/resources/image/lecture.png"
+                  alt=""
+                />
+              </div>
+              <div class="content">
+                <p class="mt-4">
+                  Lựa chọn học trực tiếp tại trung tâm hoặc học trực tuyến có
+                  tương tác phù hợp với nhu cầu học viên
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="service-item text-center">
+              <div class="image">
+                <img
+                  src="https://techmaster.vn/resources/image/lecture.png"
+                  alt=""
+                />
+              </div>
+              <div class="content">
+                <p class="mt-4">
+                  Lựa chọn học trực tiếp tại trung tâm hoặc học trực tuyến có
+                  tương tác phù hợp với nhu cầu học viên
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="service-item text-center">
+              <div class="image">
+                <img
+                  src="https://techmaster.vn/resources/image/lecture.png"
+                  alt=""
+                />
+              </div>
+              <div class="content">
+                <p class="mt-4">
+                  Lựa chọn học trực tiếp tại trung tâm hoặc học trực tuyến có
+                  tương tác phù hợp với nhu cầu học viên
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="courses pt-5 pb-5">
+      <div class="container">
+        <h3 class="text-center mb-5">Các khóa học dài hạn cam kết việc làm</h3>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="course-itemm shadow bg-white">
+              <div class="image">
+                <img
+                  src="https://techmaster.vn/resources/image/route_frontend.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="infor p-4">
+                <h5>Lập trình di động Flutter cho IOS - Android</h5>
+                <p class="fw-light">
+                  Khóa Lập trình Game Javascript đào tạo học viên xây dựng hoàn
+                  thiện ứng dụng game bằng ngôn ngữ Javascript. Toàn bộ giáo
+                  trình xây dựng cho học...
+                </p>
+                <p class="fw-bold text-black-50">7 tháng - 84 buổi</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="course-itemm shadow bg-white">
+              <div class="image">
+                <img
+                  src="https://techmaster.vn/resources/image/route_frontend.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="infor p-4">
+                <h5>Lập trình di động Flutter cho IOS - Android</h5>
+                <p class="fw-light">
+                  Khóa Lập trình Game Javascript đào tạo học viên xây dựng hoàn
+                  thiện ứng dụng game bằng ngôn ngữ Javascript. Toàn bộ giáo
+                  trình xây dựng cho học...
+                </p>
+                <p class="fw-bold text-black-50">7 tháng - 84 buổi</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="course-itemm shadow bg-white">
+              <div class="image">
+                <img
+                  src="https://techmaster.vn/resources/image/route_frontend.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="infor p-4">
+                <h5>Lập trình di động Flutter cho IOS - Android</h5>
+                <p class="fw-light">
+                  Khóa Lập trình Game Javascript đào tạo học viên xây dựng hoàn
+                  thiện ứng dụng game bằng ngôn ngữ Javascript. Toàn bộ giáo
+                  trình xây dựng cho học...
+                </p>
+                <p class="fw-bold text-black-50">7 tháng - 84 buổi</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="footer-item text-white">
+              <h5 class="mb-4">CHỦ SỞ HỮU WEBSITE</h5>
+              <p>Công ty TNHH TechMaster Vietnam Ltd</p>
+              <p>Số ĐKDN: 0105392153 Ngày cấp: 4-7-2011</p>
+              <p>Nơi cấp: Sở kế hoạch - đầu tư Hà nội</p>
+              <p>Người đại diện pháp luật: Lê Minh Thu</p>
+              <p>Phụ trách nội dung: Trịnh Minh Cường</p>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="footer-item text-white">
+              <h5 class="mb-4">CHỦ SỞ HỮU WEBSITE</h5>
+              <p>Công ty TNHH TechMaster Vietnam Ltd</p>
+              <p>Số ĐKDN: 0105392153 Ngày cấp: 4-7-2011</p>
+              <p>Nơi cấp: Sở kế hoạch - đầu tư Hà nội</p>
+              <p>Người đại diện pháp luật: Lê Minh Thu</p>
+              <p>Phụ trách nội dung: Trịnh Minh Cường</p>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="footer-item text-white">
+              <h5 class="mb-4">CHỦ SỞ HỮU WEBSITE</h5>
+              <p>Công ty TNHH TechMaster Vietnam Ltd</p>
+              <p>Số ĐKDN: 0105392153 Ngày cấp: 4-7-2011</p>
+              <p>Nơi cấp: Sở kế hoạch - đầu tư Hà nội</p>
+              <p>Người đại diện pháp luật: Lê Minh Thu</p>
+              <p>Phụ trách nội dung: Trịnh Minh Cường</p>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="footer-item text-white">
+              <h5 class="mb-4">CHỦ SỞ HỮU WEBSITE</h5>
+              <p>Công ty TNHH TechMaster Vietnam Ltd</p>
+              <p>Số ĐKDN: 0105392153 Ngày cấp: 4-7-2011</p>
+              <p>Nơi cấp: Sở kế hoạch - đầu tư Hà nội</p>
+              <p>Người đại diện pháp luật: Lê Minh Thu</p>
+              <p>Phụ trách nội dung: Trịnh Minh Cường</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="box"></div>
+            </div>
+             <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="box"></div>
+            </div>
+             <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="box"></div>
+            </div>
+        </div>
+    </div> -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

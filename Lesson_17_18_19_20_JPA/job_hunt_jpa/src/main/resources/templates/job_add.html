@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="template.html :: header('Job_Add')"> </head>
+  <body>
+    <header th:insert="template.html :: topmenu"></header>
+    <br />
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card"
+        >
+          <h1 class="text-center">ADD Job</h1>
+          <div class="card-body">
+            <form
+              th:action="@{/job/add}"
+              th:object="${jobs}"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div class="form-group">
+                <label> title </label>
+                <input
+                  type="text"
+                  name="title"
+                  th:field="*{title}"
+                  class="form-control"
+                  placeholder="Enter Name"
+                />
+                <div
+                  class="text-danger"
+                  th:if="${#fields.hasErrors('title')}"
+                  th:errors="*{title}"
+                >
+                  title Error
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label> Công ty </label>
+                <input
+                  type="text"
+                  name="emp_id"
+                  th:field="*{emp_id}"
+                  class="form-control"
+                  placeholder="Enter công ty"
+                />
+                <div
+                  class="text-danger"
+                  th:if="${#fields.hasErrors('emp_id')}"
+                  th:errors="*{emp_id}"
+                >
+                  Cong ty Error
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label> description </label>
+                <input
+                  type="text"
+                  name="description"
+                  th:field="*{description}"
+                  class="form-control"
+                  placeholder="Enter description"
+                />
+                <div
+                  class="text-danger"
+                  th:if="${#fields.hasErrors('description')}"
+                  th:errors="*{description}"
+                >
+                  description Error
+                </div>
+              </div>
+              <label for="city" class="form-label ms-1">City</label>
+              <select class="mt-2" th:field="*{city}">
+                <option
+                  th:each="city : ${T(com.my_jobhunt.job_hunt.model.City).values()}"
+                  th:value="${city}"
+                  th:text="${city.label}"
+                ></option>
+              </select>
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

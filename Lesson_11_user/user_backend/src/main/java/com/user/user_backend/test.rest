@@ -1,0 +1,31 @@
+GET http://localhost:8080/api/v1/users HTTP/1.1
+
+###
+GET http://localhost:8080/api/v1/users/search?name=văn HTTP/1.1
+
+### 
+GET http://localhost:8080/api/v1/users/1 HTTP/1.1
+
+### 
+PUT http://localhost:8080/api/v1/users/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name" : "khoa",
+"phone": "0123456",
+"address": "Thành Phố Hà Nội"
+}
+
+
+###
+PUT http://localhost:8080/api/v1/users/1/update-password HTTP/1.1
+Content-Type: application/json
+
+{
+"oldPassword": "333",
+"newPassword": "111"
+}
+
+### 
+POST  http://localhost:8080/api/v1/users/1/forgot-password HTTP/1.1
+

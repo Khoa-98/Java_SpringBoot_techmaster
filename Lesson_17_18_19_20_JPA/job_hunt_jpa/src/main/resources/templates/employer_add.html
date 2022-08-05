@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="template.html :: header('EmployerAdd')"> </head>
+  <body>
+    <header th:insert="template.html :: topmenu"></header>
+    <br />
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card"
+        >
+          <h1 class="text-center">ADD employer</h1>
+          <div class="card-body">
+            <form
+              th:action="@{/employer/add}"
+              th:object="${employers}"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div class="form-group">
+                <label> Name </label>
+                <input
+                  type="text"
+                  name="name"
+                  th:field="*{name}"
+                  class="form-control"
+                  placeholder="Enter Name"
+                />
+                <div
+                  class="text-danger"
+                  th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}"
+                >
+                  Name Error
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label> Website </label>
+                <input
+                  type="text"
+                  name="website"
+                  th:field="*{website}"
+                  class="form-control"
+                  placeholder="Enter Website"
+                />
+                <div
+                  class="text-danger"
+                  th:if="${#fields.hasErrors('website')}"
+                  th:errors="*{website}"
+                >
+                  Web site Error
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label> Email </label>
+                <input
+                  type="text"
+                  name="email"
+                  th:field="*{email}"
+                  class="form-control"
+                  placeholder="Enter Student Email"
+                />
+                <div
+                  class="text-danger"
+                  th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}"
+                >
+                  Email Error
+                </div>
+              </div>
+              <div class="form-group row mt-3" style="width: 130%">
+                <label for="logo_text" class="col-sm-2 col-form-label"
+                  >Select a Logo</label
+                >
+                <div class="col-sm-4">
+                  <input
+                    type="file"
+                    class="form-control"
+                    th:field="*{logo_path}"
+                  />
+                </div>
+                <div
+                  class="text-danger"
+                  th:if="${#fields.hasErrors('logo_path')}"
+                  th:errors="*{logo_path}"
+                >
+                  Upload Error
+                </div>
+              </div>
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
