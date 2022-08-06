@@ -111,6 +111,7 @@ public class InitDataTest {
                     .description(faker.lorem().sentence(20))
                     .thumbnail(imageRd)
                     .user(userRd)
+                    .topics(topicsRd)
                     .build();
 
             courseRepository.save(course);

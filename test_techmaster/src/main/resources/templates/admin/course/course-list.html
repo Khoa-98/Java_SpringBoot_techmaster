@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -24,7 +24,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Link tự viết -->
-    <link rel="stylesheet" href="../../../../../../../../../../Downloads/template-course-main%20(1)/template-course-main/template-course-admin/css/style-admin.css">
+    <link rel="stylesheet" th:href="@{/assets/css/style-admin.css}">
 </head>
 
 <body>
@@ -33,13 +33,13 @@
         <div class="container-fluid">
             <div class="d-flex justify-content-start align-items-center">
                 <div class="logo">
-                    <a href="course-list.html">
+                    <a th:href="@{/admin}">
                         <img src="https://techmaster.vn/resources/image/logo-techmaster/white/white_200x74.png" alt="logo">
                     </a>
                 </div>
                 <div class="menu">
-                    <a class="text-white ms-5" href="course-list.html">Danh sách khóa học</a>
-                    <a class="text-white ms-3" href="course-create.html">Tạo khóa học</a>
+                    <a class="text-white ms-5" th:href="@{/admin}">Danh sách khóa học</a>
+                    <a class="text-white ms-3"  th:href="@{/admin/create}">Tạo khóa học</a>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
     <div class="course-list mt-4 mb-4">
         <div class="container">
             <div class="mb-4">
-                <a href="course-create.html" class="btn-custom btn-create-course">
+                <a href="course-create.html" class="btn-custom btn-create-course" th:href="@{/admin/create}">
                     <span><i class="fa-solid fa-plus"></i></span>
                     Tạo khóa học
                 </a>
@@ -70,38 +70,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
+                        <tr th:each="course: ${courses}">
+
+                            <td th:text="${course.id}">1</td>
                             <td>
-                                <a href="course-edit.html">SpringBoot - Web Back End</a>
+                                <a  th:text="${course.name}">SpringBoot - Web Back End</a>
                             </td>
-                            <td class="text-info">onlab</td>
-                            <td>backend, cơ sở dữ liệu, lập trình web</td>
+                            <td class="text-info" th:text="${course.type} == 1 ? 'onlab': 'online'">onlab</td>
+                            <td th:text="${T(vn.techmaster.exam_jpa.utils.Util).generateTopicString(course.topics)}">backend, cơ sở dữ liệu, lập trình web</td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>
-                                <a href="course-edit.html">React</a>
-                            </td>
-                            <td class="text-info">onlab</td>
-                            <td>frontend, react</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>
-                                <a href="course-edit.html">Lập trình di động IOS Swift online</a>
-                            </td>
-                            <td class="text-warning">online</td>
-                            <td>mobile, database</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>
-                                <a href="course-edit.html">Javascript căn bản - Tổng hợp 12 game huyền thoại</a>
-                            </td>
-                            <td class="text-warning">online</td>
-                            <td>frontend, game, javascript</td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>

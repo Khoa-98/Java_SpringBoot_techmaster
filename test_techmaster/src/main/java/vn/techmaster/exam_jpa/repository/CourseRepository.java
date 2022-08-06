@@ -19,4 +19,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query(name = "getAllCourseInfoOnLine" , nativeQuery = true)
     List<CourseInfo> getAllCourseInfoOnLine();
 
+    Course getCourseById(Long id);
+
 }

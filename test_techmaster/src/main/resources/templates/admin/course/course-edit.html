@@ -28,7 +28,7 @@
 
 
     <!-- Link tự viết -->
-    <link rel="stylesheet" href="../../../../../../../../../../Downloads/template-course-main%20(1)/template-course-main/template-course-admin/css/style-admin.css">
+    <link rel="stylesheet" th:href="@{/assets/css/style-admin.css}">
 </head>
 
 <body>
@@ -37,14 +37,13 @@
         <div class="container-fluid">
             <div class="d-flex justify-content-start align-items-center">
                 <div class="logo">
-                    <a href="course-list.html">
-                        <img src="https://techmaster.vn/resources/image/logo-techmaster/white/white_200x74.png"
-                            alt="logo">
+                    <a th:href="@{/admin}">
+                        <img src="https://techmaster.vn/resources/image/logo-techmaster/white/white_200x74.png" alt="logo">
                     </a>
                 </div>
                 <div class="menu">
-                    <a class="text-white ms-5" href="course-list.html">Danh sách khóa học</a>
-                    <a class="text-white ms-3" href="course-create.html">Tạo khóa học</a>
+                    <a class="text-white ms-5" th:href="@{/admin}">Danh sách khóa học</a>
+                    <a class="text-white ms-3"  th:href="@{/admin/create}">Tạo khóa học</a>
                 </div>
             </div>
         </div>

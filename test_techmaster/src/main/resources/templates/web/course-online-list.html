@@ -78,7 +78,7 @@
                                     </div>
                                     <div class="course-item-info p-3">
                                         <h2 class="fs-5 mb-3 text-dark" th:text="${course.name}">Spring Boot - Web Back End</h2>
-                                        <p class="type fw-light text-black-50" th:text="${course.type}">Phòng lab</p>
+                                        <p class="type fw-light text-black-50" th:text="${course.type} == 1 ? 'onlab': 'online'">Phòng lab</p>
                                     </div>
                                 </div>
                             </a>
