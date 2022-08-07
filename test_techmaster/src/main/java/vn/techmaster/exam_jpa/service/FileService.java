@@ -1,151 +1,65 @@
 package vn.techmaster.exam_jpa.service;
 
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StreamUtils;
-import org.springframework.web.multipart.MultipartFile;
-import vn.techmaster.exam_jpa.exception.BadRequestException;
-import vn.techmaster.exam_jpa.utils.Util;
-
-
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.nio.file.StandardCopyOption;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import vn.techmaster.exam_jpa.exception.StorageException;
+
 
 @Service
 public class FileService {
-    // Path folder để upload file
-    private final Path rootPath = Paths.get("uploads");
+    @Value("${upload.path}")
+    private String path;
 
-    public FileService() {
-        createFolder(rootPath.toString());
-    }
+    // id của course id
+    public String saveFile(MultipartFile file, Long id) throws IOException {
 
-    // taoj folder
-
-    public void createFolder(String path) {
-        File folder = new File(path);
-        if (!folder.exists()) {
-            folder.mkdirs();
+        if (file.isEmpty()) {
+            throw new StorageException("Failed to store empty file");
         }
-    }
-
-    // upload file
-
-    public String uploadFile(int id, MultipartFile file) {
-        // B1: tạo folder tương ứng với user:
-        Path userDir = Paths.get("uploads").resolve(String.valueOf(id));
-        createFolder(userDir.toString());
-
-        // B2: Validate file:
-        validate(file);
-
-        // B3: tạo path tương ứng với file update
-        String generateFileId = String.valueOf(Instant.now().getEpochSecond());
-        File fileServer = new File(userDir + "/" + generateFileId);
-
+        // logo.pgn
+        String extension = getFileExtension(file.getOriginalFilename()); // png
+        String newFileName = path + id + "." + extension; // path=/abc/25445553455.png
+        // Lấy Extension
         try {
-            // Sử dụng Buffer để lưu dữ liệu từ file:
-            BufferedOutputStream stream = new BufferedOutputStream((new FileOutputStream(fileServer)));
-
-            stream.write(file.getBytes());
-            stream.close();
-
-            return "/api/v1/users/" + id + "/files/" + generateFileId;
-        } catch (Exception e) {
-            throw new RuntimeException("Lỗi khi update");
+            var is = file.getInputStream();
+            Files.copy(is, Paths.get(newFileName), StandardCopyOption.REPLACE_EXISTING);
+            return id + "." + extension;
+        } catch (IOException e) {
+            var msg = String.format("Failed to store file %s", newFileName);
+            throw new StorageException(msg, e);
         }
+
     }
 
-    public void validate(MultipartFile file) {
-        // Kiem tra ten file
-        String fileName = file.getOriginalFilename();
-        if (fileName == null || fileName.equals("")) {
-            throw new BadRequestException("Ten file khong hop le");
-        }
-
-        // kiem tra duoi file
-        String fileExtension = Util.getExtensionFile(fileName);
-        if (!Util.checkFileExtension(fileExtension)) {
-            throw new BadRequestException("File khong hop le");
-        }
-        // Kiem tra sixe (upload duoi 2MB)
-        if ((double) file.getSize() / 1_000_000L > 2) {
-            throw new BadRequestException("File khong được vượt quá 2MB");
-        }
-    }
-
-    // Xem file
-    public byte[] readFile(int id, String fileId) {
-        // Lấy đường dẫn file tương ứng với user_id
-        Path userPath = rootPath.resolve((String.valueOf(id)));
-
-        // kiểm tra userPath có tồn tại hay không
-        if (!Files.exists(userPath)) {
-            throw new RuntimeException("Lỗi khi đọc file " + fileId);
-        }
-
+    public void deleteFile(String logopath) {
+        String filePathToDelete = path + logopath;
         try {
-            // Nối đường dẫn đến file
-            Path file = userPath.resolve(fileId);
-            Resource resource = new UrlResource(file.toUri());
-
-            if (resource.exists() || resource.isReadable()) {
-                return StreamUtils.copyToByteArray(resource.getInputStream());
-            } else {
-                throw new RuntimeException("Lỗi khi đọc file " + fileId);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Lỗi khi đọc file " + fileId);
+            Files.deleteIfExists(Paths.get(filePathToDelete));
+        } catch (IOException e) {
+            var msg = String.format("Failed to delete file %s", filePathToDelete);
+            throw new StorageException(msg, e);
         }
     }
 
-    // xoa file
-    public void deleteFile(int id, String fileId) {
-        // Lấy đường dẫn file tương ứng với user_id
-        Path userPath = rootPath.resolve((String.valueOf(id)));
+    // mission: NẾu cta tải lên 1 file có đuôi: png, jpg, .. thì nó sẽ trả về cái
+    // đuôi đó
 
-        // kiểm tra userPath có tồn tại hay không
-        if (!Files.exists(userPath)) {
-            throw new RuntimeException("Lỗi khi đọc file " + fileId);
+    /*
+     * Bóc tách file extension từ file name. ví dụ từ input: pic1.png
+     * output: png
+     */
+    public String getFileExtension(String fileName) {
+        int postOfDot = fileName.lastIndexOf(".");
+        if (postOfDot >= 0) {
+            return fileName.substring(postOfDot + 1);
+        } else {
+            return null;
         }
-
-        Path file = userPath.resolve(fileId);
-        if (!file.toFile().exists()) {
-            throw new RuntimeException("file " + fileId + "  khong ton tai");
-        }
-
-        file.toFile().delete();
-    }
-
-    // Lay danh sach file
-    public List<String> getFiles(int id) {
-        // Lấy đường dẫn file tương ứng với user_id
-        Path userPath = rootPath.resolve((String.valueOf(id)));
-
-        // kiểm tra userPath có tồn tại hay không
-        if (!Files.exists(userPath)) {
-            return new ArrayList<>();
-        }
-
-        // lấy danh sách file của user
-        File[] files = userPath.toFile().listFiles();
-
-        return Arrays.stream(files)
-                .map(file -> file.getName())
-                .sorted(Comparator.reverseOrder())
-                .map(file -> "api/v1/users/" + id + "/files/" + file)
-                .collect(Collectors.toList());
-
     }
 }

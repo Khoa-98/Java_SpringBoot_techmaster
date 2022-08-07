@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class CourseDto implements Serializable {
     private  Long id;
     private String name ;
