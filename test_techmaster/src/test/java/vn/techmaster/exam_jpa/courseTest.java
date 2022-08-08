@@ -38,9 +38,17 @@ public class courseTest {
     }
 
     @Test
-    void getAllCourse_test(){
-        List<Course> courses  = courseRepository.findAll();
+    void getAllCourse_test() {
+        List<Course> courses = courseRepository.findAll();
         System.out.println(courses);
+
+    }
+    
+    @Test
+    void getcourseByTopicId() {
+        Long id = 2L;
+        List<Course> course = courseRepository.findAllByTopics_Id(id);
+        System.out.println(course);
 
     }
 }

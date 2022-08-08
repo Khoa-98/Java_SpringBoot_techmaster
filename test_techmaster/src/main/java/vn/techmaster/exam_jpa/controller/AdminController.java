@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import vn.techmaster.exam_jpa.entity.Course;
 import vn.techmaster.exam_jpa.repository.TopicRepository;
 import vn.techmaster.exam_jpa.repository.UserRepository;
@@ -70,6 +72,14 @@ public class AdminController {
         return ResponseEntity.ok(course);
     }
 
+    // upload file image
+    @PostMapping("/api/courses/{id}/upload-file")
+    public ResponseEntity<?> uploadFile(@ModelAttribute("file") MultipartFile file, @PathVariable Long id) {
+        String filePath = courseService.uploadFile(id, file);
+        return ResponseEntity.ok(filePath);
+    }
+
+    // xoa khoa hoc
     @DeleteMapping("/delete/{id}")
     public String deleteCourse(Model model, @PathVariable Long id) {
         model.addAttribute("course", courseRepository.findById(id));

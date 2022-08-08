@@ -112,7 +112,7 @@
                                 <option hidden>- Chọn tư vấn viên</option>
                                 <th:block th:each="supporter :${supporters}">
                                     <option  th:value="${supporter.id}" th:text="${supporter.name}"
-                                     th:selected="${course.user.id} == ${supporter.id}">nguyen van A</option>
+                                     th:selected=" ${supporter.id}">nguyen van A</option>
                                 </th:block>
 
                             </select>
@@ -124,7 +124,7 @@
                                 <img id="course-logo-preview" class="rounded" th:src="${course.thumbnail}">
                             </div>
 
-                            <label for="course-logo-input" class="btn btn-warning">Tải ảnh lên
+                            <label for="course-logo-input" class="btn btn-warning">Đổi ảnh
                                 <input type="file" id="course-logo-input" class="d-none">
                         </div>
                     </div>
@@ -158,6 +158,7 @@
         const courseTopic = $("#course-topic");
         const courseSupporter = document.getElementById("course-supporter");
         const courseThumbnailPreview = document.getElementById("course-logo-preview");
+        const courseImageInput = document.getElementById("course-logo-input");
 
         const btnUpdate = document.getElementById("btn-update-course");
         const deleteEl = document.getElementById("btn-delete-course");
@@ -183,7 +184,7 @@
                     description : courseDescription.value,
                     type : Number(courseType.value),
                     topics : topicsConvert,
-                    user : Number(courseSupporter.value)
+                    supporter : courseSupporter.value
                 })
                 console.log(res);
 
@@ -213,6 +214,23 @@
                 }, 1000);
             }
         })
+   // Upload file
+        courseImageInput.addEventListener("change", async (event) => {
+            try {
+                const file = event.target.files[0];
+
+                let formData = new FormData();
+                formData.append("file", file);
+
+                let res = await axios.post(`/admin/api/courses/${course.id}/upload-file`, formData)
+
+                courseThumbnailPreview.src = res.data;
+            } catch (error) {
+                console.log(error);
+            }
+        })
+       
+       
     </script>
 
     </th:block>

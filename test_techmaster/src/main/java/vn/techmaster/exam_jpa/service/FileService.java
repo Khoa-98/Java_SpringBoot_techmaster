@@ -1,65 +1,116 @@
 package vn.techmaster.exam_jpa.service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
-import vn.techmaster.exam_jpa.exception.StorageException;
+
+import vn.techmaster.exam_jpa.entity.Image;
+import vn.techmaster.exam_jpa.exception.BadRequestException;
+import vn.techmaster.exam_jpa.repository.ImageRepository;
+import vn.techmaster.exam_jpa.utils.Util;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 
 @Service
 public class FileService {
-    @Value("${upload.path}")
-    private String path;
+    @Autowired
+    private ImageRepository imageRepository;
 
-    // id của course id
-    public String saveFile(MultipartFile file, Long id) throws IOException {
+    private final Path rootDir = Paths.get("uploads");
 
-        if (file.isEmpty()) {
-            throw new StorageException("Failed to store empty file");
-        }
-        // logo.pgn
-        String extension = getFileExtension(file.getOriginalFilename()); // png
-        String newFileName = path + id + "." + extension; // path=/abc/25445553455.png
-        // Lấy Extension
-        try {
-            var is = file.getInputStream();
-            Files.copy(is, Paths.get(newFileName), StandardCopyOption.REPLACE_EXISTING);
-            return id + "." + extension;
-        } catch (IOException e) {
-            var msg = String.format("Failed to store file %s", newFileName);
-            throw new StorageException(msg, e);
-        }
-
+    public FileService() {
+        createFolder(rootDir.toString());
     }
 
-    public void deleteFile(String logopath) {
-        String filePathToDelete = path + logopath;
-        try {
-            Files.deleteIfExists(Paths.get(filePathToDelete));
-        } catch (IOException e) {
-            var msg = String.format("Failed to delete file %s", filePathToDelete);
-            throw new StorageException(msg, e);
+    public void createFolder(String path) {
+        File folder = new File(path);
+        if (!folder.exists()) {
+            folder.mkdirs();
         }
     }
 
-    // mission: NẾu cta tải lên 1 file có đuôi: png, jpg, .. thì nó sẽ trả về cái
-    // đuôi đó
+    public String uploadFile(MultipartFile file) {
+        // Validate file
+        validateFile(file);
 
-    /*
-     * Bóc tách file extension từ file name. ví dụ từ input: pic1.png
-     * output: png
-     */
-    public String getFileExtension(String fileName) {
-        int postOfDot = fileName.lastIndexOf(".");
-        if (postOfDot >= 0) {
-            return fileName.substring(postOfDot + 1);
-        } else {
-            return null;
+        // Tạo path tương ứng với file Upload lên
+        String genarateFileId = UUID.randomUUID().toString();
+        File serverFile = new File(rootDir + "/" + genarateFileId);
+
+        try {
+            // Sử dụng Buffer để lưu dữ liệu từ file
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+
+            stream.write(file.getBytes());
+            stream.close();
+
+            String filePath = "/api/files/" + genarateFileId;
+
+            // Tạo đối tượng image
+            Image image = Image.builder()
+                    .id(genarateFileId)
+                    .link(filePath)
+                    .build();
+
+            // Lưu lại file vào trong database
+            imageRepository.save(image);
+
+            return "/api/files/" + genarateFileId;
+        } catch (Exception e) {
+            throw new RuntimeException("Lỗi khi upload file");
+        }
+    }
+
+    // Một số validate với file
+    public void validateFile(MultipartFile file) {
+        // Kiểm tra file
+        String fileName = file.getOriginalFilename();
+        if (fileName == null || fileName.equals("")) {
+            throw new BadRequestException("Tên file không hợp lệ");
+        }
+
+        // Lấy extension file
+        String fileExtension = Util.getExtensionFile(fileName);
+
+        // Kiểm tra extension file có hợp lệ hay không
+        if (!Util.checkFileExtension(fileExtension)) {
+            throw new BadRequestException("File không hợp lệ");
+        }
+
+        // Check size file
+        if ((double) file.getSize() / 1_000_000L > 2) {
+            throw new BadRequestException("File không được vượt quá 2MB");
+        }
+    }
+
+    public byte[] readFile(String fileId) {
+        try {
+            // Lấy đường dẫn file tương ứng file_id
+            Path file = rootDir.resolve(fileId);
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                InputStream stream = resource.getInputStream();
+                byte[] bytes = StreamUtils.copyToByteArray(stream);
+
+                stream.close();
+
+                return bytes;
+            } else {
+                throw new RuntimeException("Không thể đọc file: " + fileId);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Không thể đọc file : " + fileId);
         }
     }
 }

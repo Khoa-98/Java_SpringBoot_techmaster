@@ -20,6 +20,7 @@ import vn.techmaster.exam_jpa.request.CourseCreateRequest;
 import vn.techmaster.exam_jpa.request.CourseUpdateRequest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -68,13 +69,23 @@ public class CourseService {
         return courseInfoList;
     }
 
-    // loc theo topic
-    // public List<CourseInfo> findCourseByTopic(String keyword) {
-    // List<CourseInfo> courseInfoList =
-    // courseRepository.getAllCourseInfo().stream()
-    // .filter(j -> j.get().toLowerCase().contains(keyword.toLowerCase()))
-    // .collect(Collectors.toList());
-    // return courseInfoList;
+    // // loc theo topic
+    // private List<Course> getCoursesFilter(String topic, String name) {
+    //     List<Course> courses = new ArrayList<>();
+    //     if (!topic.trim().equals("")) {
+    //         Topic topicObj = topicRepository.getTopicsByNameContaining(topic);
+    //        courses = courses
+    //                 .stream()
+    //                 .filter(course -> course.getTopics().contains(topicObj))
+    //                 .collect(Collectors.toList());
+    //     }
+    //     if (!name.trim().equals("")) {
+    //         courses = courses
+    //                 .stream()
+    //                 .filter(course -> course.getName().toLowerCase().contains(name.toLowerCase()))
+    //                 .collect(Collectors.toList());
+    //     }
+    //     return courses;
     // }
 
     // Lấy danh sách tất cả course ở dạng DTO
@@ -98,6 +109,8 @@ public class CourseService {
                 .name(request.getName())
                 .description(request.getDescription())
                 .type(request.getType())
+                .slug(slugify.slugify(request
+                        .getName()))
                 .topics(topics)
                 .user(supporter)
                 .build();
@@ -105,12 +118,6 @@ public class CourseService {
         courseRepository.save(course);
         return course;
     }
-    // // Cập nhật logo của course
-    // public void updateLogo(Long id, String thumbnail) {
-    // var course = courseRepository.getCourseById(id);
-    // course.setThumbnail(thumbnail);
-    // courseRepository.save(course);
-    // }
 
     // Lấy chi tiết khoa hoc -> Dto
     public CourseDto getCourseDtoById(Long id) {
@@ -138,5 +145,17 @@ public class CourseService {
 
         courseRepository.save(course);
         return course;
+    }
+
+    // upload file 
+    public String uploadFile(Long id, MultipartFile file) {
+        Course course = courseRepository.getCourseById(id);
+
+        String filePath = fileService.uploadFile(file);
+
+        course.setThumbnail(filePath);
+        courseRepository.save(course);
+
+        return filePath;
     }
 }
