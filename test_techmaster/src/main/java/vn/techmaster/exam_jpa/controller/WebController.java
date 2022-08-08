@@ -35,9 +35,9 @@ public class WebController {
     }
 
     @GetMapping("/list/topic/{topicId}")
-    public String getCourseByTopic(@PathVariable Long topicid, Model model) {
+    public String getCourseByTopic(@PathVariable Long topicId, Model model) {
         model.addAttribute("topics", topicRepository.findAll());
-        model.addAttribute("courses", courseRepository.findAllByTopics_Id(topicid));
+        model.addAttribute("courses", courseRepository.findAllByTopics_Id(topicId));
         return "web/course-list";
 
     }
@@ -45,12 +45,14 @@ public class WebController {
     @GetMapping("/online_list")
     public String getOnlineListCourse(Model model) {
         model.addAttribute("courses", courseService.getAllCoursesOnline());
+        model.addAttribute("topics", topicRepository.findAll());
         return "web/course-online-list";
     }
 
     @GetMapping("/onlab_list")
     public String getOnLabListCourse(Model model) {
         model.addAttribute("courses", courseService.getAllCoursesOnlab());
+        model.addAttribute("topics", topicRepository.findAll());
         return "web/course-onlab-list";
     }
 

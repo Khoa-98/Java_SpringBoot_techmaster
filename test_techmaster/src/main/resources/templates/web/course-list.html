@@ -61,17 +61,8 @@
               class="topic-item input-group d-flex align-items-center mb-1"
               th:each="topic :${topics}"
             >
-              <a th:href="@{/api/v1/course/list/topic/{topicId} (topicId=${topic.id})}">
-                <input type="radio" id="backend" name="topic" />
+              <a th:href="@{/api/v1/course/list/topic/{topicId} (topicId=${topic.id})}" th:text="${topic.name}">
               </a>
-
-              <label
-                for="backend"
-                class="ms-2 fs-5"
-                th:value="${topic.id}"
-                th:text="${topic.name}"
-                >Lập trình Backend</label
-              >
             </div>
           </div>
 
@@ -120,7 +111,7 @@
                       </h2>
                       <p
                         class="type fw-light text-black-50"
-                        th:text="${course.type} == 1 ? 'onlab': 'online'"
+                        th:text="${course.type} == 1 ? 'online': 'onlab'"
                       >
                         Trực tuyến
                       </p>

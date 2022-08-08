@@ -45,10 +45,13 @@ public class courseTest {
     }
     
     @Test
-    void getcourseByTopicId() {
+    void getCourseByTopicId() {
         Long id = 2L;
         List<Course> course = courseRepository.findAllByTopics_Id(id);
-        System.out.println(course);
+        System.out.println(course.toString());
 
     }
+
+
+
 }
