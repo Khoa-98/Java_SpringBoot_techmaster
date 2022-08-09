@@ -6,6 +6,6 @@ import vn.techmaster.exam_jpa.entity.Image;
 
 
 @Repository
-public interface ImageRepository extends JpaRepository<Image, Long> {
+public interface ImageRepository extends JpaRepository<Image, String> {
 
 }

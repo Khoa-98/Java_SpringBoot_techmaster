@@ -1,4 +1,34 @@
-**Website**  
+
+**_Chức Năng_**
+
+1.Admin
+
+Xem danh sách khóa học
+
+Tạo khóa học
+
+Cập nhật thông tin khóa học (bao gồm cả upload file)
+
+Xóa khóa học
+
+2.User
+
+Xem danh sách tất cả khóa học
+
+Xem danh sách khóa học online
+
+Xem danh sách khóa học onlab
+
+Lọc khóa học (tiêu đề, chủ đề)
+
+Xem thông tin của 1 khóa học cụ thể.  
+
+
+**Website**    
+-> AWS :  http://34.219.73.111:8080/  
+admin: http://34.219.73.111:8080/admin
+web: http://34.219.73.111:8080/api/v1/course/list
+
 1.Danh sách tất cả các khoa hoc:  
 http://localhost:8080/api/v1/course/list 
 
@@ -39,29 +69,7 @@ http://localhost:8080/admin/api/courses/{id}/upload-file
 7. read file  
    http://localhost:8080/api/files/{fileId}
    
-**_Chức Năng_**  
 
-1.Admin
-
-Xem danh sách khóa học  
-
-Tạo khóa học  
-
-Cập nhật thông tin khóa học (bao gồm cả upload file) 
-
-Xóa khóa học  
-
-2.User
-
-Xem danh sách tất cả khóa học  
-
-Xem danh sách khóa học online  
-
-Xem danh sách khóa học onlab  
-
-Lọc khóa học (tiêu đề, chủ đề)  
-
-Xem thông tin của 1 khóa học cụ thể
 
 
 

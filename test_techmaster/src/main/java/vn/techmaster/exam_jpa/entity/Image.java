@@ -12,12 +12,14 @@ import javax.persistence.*;
 @Table(name = "image")
 @Entity
 public class Image {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private String id;
 
     @Column(name = "link")
     private String link;
+
+
 
 }

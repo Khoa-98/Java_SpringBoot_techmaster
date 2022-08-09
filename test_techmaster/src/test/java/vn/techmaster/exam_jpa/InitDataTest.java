@@ -17,6 +17,7 @@ import vn.techmaster.exam_jpa.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 @SpringBootTest
 public class InitDataTest {
@@ -54,8 +55,10 @@ public class InitDataTest {
     
     @Test
     void save_image(){
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
+            String generateFileId = UUID.randomUUID().toString();
             Image image = Image.builder()
+                    .id(generateFileId)
                     .link(faker.company().logo())
                     .build();
             imageRepository.save(image);
