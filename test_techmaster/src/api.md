@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 **_Chức Năng_**
 
@@ -29,6 +30,33 @@ Xem thông tin của 1 khóa học cụ thể.
 admin: http://34.219.73.111:8080/admin
 web: http://34.219.73.111:8080/api/v1/course/list
 
+=======
+**_Chức Năng_**  
+
+1.Admin
+
+Xem danh sách khóa học  
+
+Tạo khóa học  
+
+Cập nhật thông tin khóa học (bao gồm cả upload file) 
+
+Xóa khóa học  
+
+2.User
+
+Xem danh sách tất cả khóa học  
+
+Xem danh sách khóa học online  
+
+Xem danh sách khóa học onlab  
+
+Lọc khóa học (tiêu đề, chủ đề)  
+
+Xem thông tin của 1 khóa học cụ thể
+
+**Website**  
+>>>>>>> a08f63ebbdf73c3887a3df1af11e2fbe8233d903
 1.Danh sách tất cả các khoa hoc:  
 http://localhost:8080/api/v1/course/list 
 
